@@ -19,25 +19,27 @@ var options = {
   etag: false,
   extensions: ['htm', 'html','css','js','ico','jpg','jpeg','png','svg'],
   index: ['index.html'],
-  maxAge: '1m',
+  maxAge: '1d',
   redirect: false
 }
 app.use(express.static('public', options))
 
+app.use(koa404Handler);
+
 // #############################################################################
 // Catch all handler for all other request.
-app.use('*', (req,res) => {
-  res.json({
-      at: new Date().toISOString(),
-      method: req.method,
-      hostname: req.hostname,
-      ip: req.ip,
-      query: req.query,
-      headers: req.headers,
-      cookies: req.cookies,
-      params: req.params
-    })
-    .end()
-})
+// app.use('*', (req,res) => {
+//   res.json({
+//       at: new Date().toISOString(),
+//       method: req.method,
+//       hostname: req.hostname,
+//       ip: req.ip,
+//       query: req.query,
+//       headers: req.headers,
+//       cookies: req.cookies,
+//       params: req.params
+//     })
+//     .end()
+// })
 
 module.exports = app
