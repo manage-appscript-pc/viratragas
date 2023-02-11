@@ -1,15 +1,12 @@
 const express = require('express')
 const path = require("path");
-const errorHandler = require('koa-better-error-handler');
-const koa404Handler = require('koa-404-handler');
 const app = express()
 
-app.context.onerror = errorHandler;
+// app.context.onerror = errorHandler;
 // #############################################################################
 // Logs all request paths and method
 app.use(function (req, res, next) {
   res.set('x-timestamp', Date.now())
-  res.set('x-powered-by', 'cyclic.sh')
   console.log(`[${new Date().toISOString()}] ${req.ip} ${req.method} ${req.path}`);
   next();
 });
@@ -27,22 +24,11 @@ var options = {
 }
 app.use(express.static('public', options))
 
-app.use(koa404Handler);
-
 // #############################################################################
 // Catch all handler for all other request.
-// app.use('*', (req,res) => {
-//   res.json({
-//       at: new Date().toISOString(),
-//       method: req.method,
-//       hostname: req.hostname,
-//       ip: req.ip,
-//       query: req.query,
-//       headers: req.headers,
-//       cookies: req.cookies,
-//       params: req.params
-//     })
-//     .end()
-// })
+app.use('*', (req,res) => {
+  res.status(404).send('<h1>Oops! can\'t find what you\'re looking for</h1> <br /><a href="/">Go Back</a>')
+    .end()
+})
 
 module.exports = app
