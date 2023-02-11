@@ -1,7 +1,10 @@
 const express = require('express')
 const path = require("path");
+const errorHandler = require('koa-better-error-handler');
+const koa404Handler = require('koa-404-handler');
 const app = express()
 
+app.context.onerror = errorHandler;
 // #############################################################################
 // Logs all request paths and method
 app.use(function (req, res, next) {
