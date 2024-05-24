@@ -19,7 +19,8 @@
   },
   "homepage": "viratragas.com",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "compression": "^1.7.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
